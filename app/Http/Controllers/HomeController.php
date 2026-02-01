@@ -8,10 +8,15 @@ use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::all();
+       $products = Product::when($request->search,function($query)use($request){
+            return $query->whereAny([
+                'name',
+                'price'
+            ],'like','%'.$request->search.'%');
+        })->get();
         $categories = Category::all();
-        return view ('home',compact('products','categories'));
+        return view('home', compact('products', 'categories'));
     }
 }
