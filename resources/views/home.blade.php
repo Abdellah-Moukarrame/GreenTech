@@ -223,15 +223,6 @@
             </div>
 
             <div class="flex items-center gap-4">
-                <div class="relative">
-                    <input type="text" placeholder="Rechercher un produit..."
-                        class="search-glow border border-gray-200 rounded-2xl pl-10 pr-4 py-2.5 w-72 focus:outline-none focus:border-sage transition-all text-sm bg-white/80">
-                    <svg class="w-5 h-5 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" fill="none"
-                        stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                    </svg>
-                </div>
 
                 <a href="/login"
                     class="flex items-center gap-2 px-4 py-2 rounded-xl border border-gray-200 hover:border-sage hover:bg-mint/10 transition-all text-sm font-medium text-gray-700">
@@ -283,6 +274,8 @@
                 </div>
             </div>
 
+
+
             <!-- Floating elements -->
             <div class="absolute top-20 left-10 float-animation opacity-20">
                 <span class="text-6xl">🌱</span>
@@ -313,17 +306,44 @@
         </div>
     </section>
 
-    <!-- CATEGORIES FILTER (SELECT) -->
+    <!-- SEARCH & FILTER SECTION -->
     <section class="max-w-7xl mx-auto px-6 mt-16">
-        <div class="flex justify-center">
-            <select
-                class="w-full max-w-xs px-5 py-3 rounded-xl border border-gray-200 bg-white text-gray-700 font-medium shadow-sm focus:outline-none focus:ring-2 focus:ring-sage focus:border-sage">
+        <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+            <!-- Barre de recherche -->
+            <form action="" method="get">
+                <div class="flex items-center gap-3">
+                    <div class="relative flex-1 md:flex-initial">
+                        <input type="text" name="search" placeholder="Rechercher un produit..."
+                            class="search-glow border border-gray-200 rounded-2xl pl-10 pr-4 py-2.5 w-full md:w-72 focus:outline-none focus:border-sage transition-all text-sm bg-white/80">
+                        <svg class="w-5 h-5 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                        </svg>
+                    </div>
 
-                <option value="all">Tous les produits</option>
-                @foreach ($categories as $category)
-                    <option value="all">{{$category->name}}</option>
-                @endforeach
-            </select>
+                    <button type="submit"
+                        class="flex items-center gap-2 bg-grren text-black px-6 py-2.5 rounded-xl font-bold hover:shadow-lg hover:scale-100 transition-all whitespace-nowrap">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                        </svg>
+                        Rechercher
+                    </button>
+                </div>
+            </form>
+
+
+            <!-- Filtre de catégories -->
+            <div class="w-full md:w-auto">
+                <select
+                    class="w-full md:w-auto min-w-[250px] px-5 py-3 rounded-xl border border-gray-200 bg-white text-gray-700 font-medium shadow-sm focus:outline-none focus:ring-2 focus:ring-sage focus:border-sage">
+                    <option value="all">Tous les produits</option>
+                    @foreach ($categories as $category)
+                        <option value="all">{{ $category->name }}</option>
+                    @endforeach
+                </select>
+            </div>
         </div>
     </section>
 
