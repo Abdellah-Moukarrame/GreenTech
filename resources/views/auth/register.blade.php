@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Connexion Admin - GreenTech Solutions</title>
+    <title>Inscription Admin - GreenTech Solutions</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap');
@@ -26,7 +26,6 @@
             font-family: 'Playfair Display', serif;
         }
 
-        /* Animated background */
         .login-bg {
             position: fixed;
             inset: 0;
@@ -77,7 +76,6 @@
             }
         }
 
-        /* Tech grid overlay */
         .tech-grid {
             background-image:
                 linear-gradient(rgba(74, 144, 226, 0.02) 1px, transparent 1px),
@@ -85,20 +83,17 @@
             background-size: 50px 50px;
         }
 
-        /* Glass morphism */
         .glass {
             background: rgba(255, 255, 255, 0.9);
             backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.5);
         }
 
-        /* Input focus glow */
         .input-glow:focus {
             box-shadow: 0 0 0 3px rgba(82, 183, 136, 0.15);
             border-color: var(--sage);
         }
 
-        /* Floating animation */
         @keyframes float {
             0%, 100% { transform: translateY(0px) rotate(0deg); }
             50% { transform: translateY(-15px) rotate(5deg); }
@@ -108,39 +103,17 @@
             animation: float 4s ease-in-out infinite;
         }
 
-        /* Pulse effect */
-        @keyframes pulse-green {
-            0%, 100% {
-                box-shadow: 0 0 0 0 rgba(82, 183, 136, 0.7);
-            }
-            50% {
-                box-shadow: 0 0 0 15px rgba(82, 183, 136, 0);
-            }
-        }
-
-        .pulse {
-            animation: pulse-green 2s infinite;
-        }
-
-        /* Leaf decorations */
         .leaf-decoration {
             position: absolute;
             opacity: 0.08;
             pointer-events: none;
         }
 
-        /* Gradient text */
         .gradient-text {
             background: linear-gradient(135deg, var(--forest-mid) 0%, var(--sage) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-        }
-
-        /* Hover effects */
-        .social-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
         }
 
         .btn-primary:hover {
@@ -154,6 +127,82 @@
 
         .logo-inner {
             transition: transform 0.3s ease;
+        }
+
+        .divider-label {
+            position: relative;
+            z-index: 1;
+            background: white;
+            padding: 0 16px;
+            font-size: 0.82rem;
+            color: #9ca3af;
+        }
+
+        .select-styled {
+            appearance: none;
+            -webkit-appearance: none;
+            background-color: white;
+            cursor: pointer;
+        }
+
+        .custom-check {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            min-width: 20px;
+            border: 2px solid #d1d5db;
+            border-radius: 6px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+            margin-top: 2px;
+        }
+
+        .custom-check:checked {
+            background: linear-gradient(135deg, var(--forest-mid), var(--sage));
+            border-color: transparent;
+        }
+
+        .custom-check:checked::after {
+            content: '';
+            position: absolute;
+            left: 5px;
+            top: 2px;
+            width: 6px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 2.5px 2.5px 0;
+            transform: rotate(45deg);
+        }
+
+        .custom-check:focus {
+            box-shadow: 0 0 0 3px rgba(82, 183, 136, 0.2);
+            outline: none;
+        }
+
+        .link-green {
+            color: var(--forest-mid);
+            font-weight: 600;
+            transition: color 0.2s;
+        }
+        .link-green:hover {
+            color: var(--sage);
+        }
+
+        .back-link {
+            color: #4b5563;
+            transition: color 0.2s;
+        }
+        .back-link:hover {
+            color: var(--forest-mid);
+        }
+        .back-link:hover svg {
+            transform: translateX(-3px);
+        }
+        .back-link svg {
+            transition: transform 0.2s;
         }
     </style>
 </head>
@@ -172,27 +221,28 @@
 
     <div class="w-full max-w-6xl flex items-center gap-12">
 
-        <!-- Left Side - Branding & Info -->
+        <!-- Left Side – Branding -->
         <div class="hidden lg:flex flex-col flex-1">
+
             <!-- Logo -->
             <a href="/" class="flex items-center gap-3 mb-12 logo-rotate group">
                 <div class="w-14 h-14 bg-gradient-to-br from-green-500 to-green-700 rounded-2xl flex items-center justify-center transform rotate-6 shadow-xl">
                     <span class="logo-inner text-white text-2xl font-bold transform -rotate-6">G</span>
                 </div>
                 <div>
-                    <h1 class="text-3xl font-bold text-gray-800 heading-font" style="color: var(--forest-dark);">GreenTech</h1>
+                    <h1 class="text-3xl font-bold heading-font" style="color: var(--forest-dark);">GreenTech</h1>
                     <p class="text-sm text-gray-500">Solutions Durables</p>
                 </div>
             </a>
 
-            <!-- Hero Text -->
+            <!-- Hero -->
             <div class="mb-12">
                 <h2 class="text-5xl font-bold mb-6 heading-font leading-tight" style="color: var(--forest-dark);">
-                    Cultivons ensemble
-                    <span class="gradient-text block">un avenir vert</span>
+                    Rejoignez notre
+                    <span class="gradient-text block">mission verte</span>
                 </h2>
                 <p class="text-lg text-gray-600 leading-relaxed mb-8">
-                    Accédez à votre espace administrateur pour gérer votre catalogue écologique et suivre l'impact environnemental de votre activité.
+                    Créez votre compte administrateur et commencez à contribuer à un avenir plus durable dès aujourd'hui.
                 </p>
 
                 <!-- Features -->
@@ -200,36 +250,36 @@
                     <div class="flex items-start gap-4">
                         <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg" style="background: linear-gradient(135deg, var(--sage) 0%, var(--mint) 100%);">
                             <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
                             </svg>
                         </div>
                         <div>
-                            <h3 class="font-semibold text-gray-800 mb-1">Gestion Simplifiée</h3>
-                            <p class="text-sm text-gray-600">Interface intuitive pour gérer vos produits et commandes</p>
+                            <h3 class="font-semibold text-gray-800 mb-1">Compte Admin Sécurisé</h3>
+                            <p class="text-sm text-gray-600">Accès personnel avec des permissions personnalisées</p>
                         </div>
                     </div>
 
                     <div class="flex items-start gap-4">
                         <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg" style="background: linear-gradient(135deg, var(--sage) 0%, var(--mint) 100%);">
                             <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
                             </svg>
                         </div>
                         <div>
-                            <h3 class="font-semibold text-gray-800 mb-1">Analytics en Temps Réel</h3>
-                            <p class="text-sm text-gray-600">Suivez vos performances et votre impact écologique</p>
+                            <h3 class="font-semibold text-gray-800 mb-1">Tableau de Bord Complet</h3>
+                            <p class="text-sm text-gray-600">Visualisez et pilotez votre impact environnemental</p>
                         </div>
                     </div>
 
                     <div class="flex items-start gap-4">
                         <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg" style="background: linear-gradient(135deg, var(--sage) 0%, var(--mint) 100%);">
                             <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
                             </svg>
                         </div>
                         <div>
-                            <h3 class="font-semibold text-gray-800 mb-1">Sécurité Maximale</h3>
-                            <p class="text-sm text-gray-600">Vos données sont protégées avec un cryptage de niveau entreprise</p>
+                            <h3 class="font-semibold text-gray-800 mb-1">Onboarding Rapide</h3>
+                            <p class="text-sm text-gray-600">Opérationnel en quelques minutes avec notre guide</p>
                         </div>
                     </div>
                 </div>
@@ -238,27 +288,26 @@
             <!-- Stats -->
             <div class="grid grid-cols-3 gap-6">
                 <div class="text-center">
-                    <div class="text-3xl font-bold mb-1" style="color: var(--sage);">500+</div>
-                    <div class="text-sm text-gray-600">Produits</div>
+                    <div class="text-3xl font-bold mb-1" style="color: var(--sage);">120+</div>
+                    <div class="text-sm text-gray-600">Admins</div>
                 </div>
                 <div class="text-center border-x border-gray-200">
-                    <div class="text-3xl font-bold mb-1" style="color: var(--sage);">98%</div>
-                    <div class="text-sm text-gray-600">Satisfaction</div>
+                    <div class="text-3xl font-bold mb-1" style="color: var(--sage);">24/7</div>
+                    <div class="text-sm text-gray-600">Support</div>
                 </div>
                 <div class="text-center">
-                    <div class="text-3xl font-bold mb-1" style="color: var(--sage);">-40%</div>
-                    <div class="text-sm text-gray-600">CO₂</div>
+                    <div class="text-3xl font-bold mb-1" style="color: var(--sage);">🌍</div>
+                    <div class="text-sm text-gray-600">Mondial</div>
                 </div>
             </div>
         </div>
 
-        <!-- Right Side - Login Form -->
+        <!-- Right Side – Register Form -->
         <div class="flex-1 max-w-md w-full">
             <div class="glass rounded-3xl shadow-2xl p-10">
 
-                <!-- Form Header -->
+                <!-- Header -->
                 <div class="text-center mb-8">
-                    <!-- Mobile Logo -->
                     <div class="lg:hidden flex justify-center mb-6">
                         <a href="/" class="flex items-center gap-3">
                             <div class="w-12 h-12 bg-gradient-to-br from-green-500 to-green-700 rounded-2xl flex items-center justify-center transform rotate-6 shadow-xl">
@@ -270,86 +319,91 @@
                         </a>
                     </div>
 
-                    <h2 class="text-3xl font-bold text-gray-800 mb-2 heading-font">Bon retour !</h2>
-                    <p class="text-gray-600">Connectez-vous à votre espace admin</p>
+                    <h2 class="text-3xl font-bold text-gray-800 mb-2 heading-font">Créer un compte</h2>
+                    <p class="text-gray-500 text-sm">Remplissez les informations ci-dessous</p>
                 </div>
 
-                <!-- Login Form -->
-                <form class="space-y-6">
-
-                    <!-- Email Input -->
+                <!-- Form -->
+                <form class="space-y-5" action="{{route('register.store')}}" method="POST">
+                    @csrf
+                    @method('POST')
+                    <!-- Nom complet -->
                     <div>
-                        <label for="email" class="block text-sm font-semibold text-gray-700 mb-2">
-                            Adresse email
-                        </label>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Nom complet</label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                                </svg>
+                            </div>
+                            <input type="text" id="name" name="name"
+                                class="input-glow w-full pl-12 pr-4 py-3.5 border border-gray-200 rounded-xl focus:outline-none transition-all bg-white text-gray-800 placeholder-gray-400"
+                                placeholder="Jean Dupont">
+                        </div>
+                    </div>
+
+                    <!-- Email -->
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Adresse email</label>
                         <div class="relative">
                             <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                                 <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"></path>
                                 </svg>
                             </div>
-                            <input
-                                type="email"
-                                id="email"
+                            <input type="email" id="email" name="email"
                                 class="input-glow w-full pl-12 pr-4 py-3.5 border border-gray-200 rounded-xl focus:outline-none transition-all bg-white text-gray-800 placeholder-gray-400"
-                                placeholder="admin@greentech.com"
-                            >
+                                placeholder="jean@greentech.com">
                         </div>
                     </div>
 
-                    <!-- Password Input -->
+                    <!-- Mot de passe -->
                     <div>
-                        <label for="password" class="block text-sm font-semibold text-gray-700 mb-2">
-                            Mot de passe
-                        </label>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Mot de passe</label>
                         <div class="relative">
                             <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                                 <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
                                 </svg>
                             </div>
-                            <input
-                                type="password"
-                                id="password"
-                                class="input-glow w-full pl-12 pr-12 py-3.5 border border-gray-200 rounded-xl focus:outline-none transition-all bg-white text-gray-800 placeholder-gray-400"
-                                placeholder="••••••••"
-                            >
-                            <button
-                                type="button"
-                                class="absolute inset-y-0 right-0 pr-4 flex items-center text-gray-400 transition-colors" style="color: #9ca3af;"
-                            >
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
-                                </svg>
-                            </button>
+                            <input type="password" id="password" name="password"
+                                class="input-glow w-full pl-12 pr-4 py-3.5 border border-gray-200 rounded-xl focus:outline-none transition-all bg-white text-gray-800 placeholder-gray-400"
+                                placeholder="••••••••">
                         </div>
+                        <p class="text-xs text-gray-400 mt-2">Minimum 8 caractères avec une lettre et un chiffre</p>
                     </div>
 
-                    <!-- Submit Button -->
-                    <button
-                        type="submit"
+                    <!-- Bouton -->
+                    <button type="submit"
                         class="btn-primary w-full text-white font-semibold py-4 rounded-xl shadow-lg transition-all duration-300 flex items-center justify-center gap-2"
-                        style="background: linear-gradient(to right, var(--forest-mid), var(--sage));"
-                    >
-                        Se connecter
+                        style="background: linear-gradient(to right, var(--forest-mid), var(--sage));">
+                        Créer mon compte
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
                         </svg>
                     </button>
                 </form>
 
-                <!-- Divider -->
-                <div class="relative my-8">
+                <!-- Séparateur -->
+                <div class="relative my-7">
                     <div class="absolute inset-0 flex items-center">
                         <div class="w-full border-t border-gray-200"></div>
                     </div>
+                    <div class="relative flex justify-center">
+                        <span class="divider-label">ou</span>
+                    </div>
                 </div>
+
+                <!-- Déjà un compte -->
+                <p class="text-center text-sm text-gray-500">
+                    Vous avez déjà un compte ?
+                    <a href="login" class="link-green ml-1">Se connecter</a>
+                </p>
             </div>
 
-            <!-- Back to Home -->
+            <!-- Retour accueil -->
             <div class="mt-6 text-center">
-                <a href="/" class="inline-flex items-center gap-2 text-sm text-gray-600 transition-colors">
+                <a href="/" class="back-link inline-flex items-center gap-2 text-sm">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
                     </svg>

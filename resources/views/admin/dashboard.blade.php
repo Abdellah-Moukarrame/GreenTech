@@ -466,7 +466,6 @@
                                             class="product-thumb" alt="Product">
                                         <div>
                                             <p class="font-semibold text-gray-800">{{ $product->name }}</p>
-                                            <p class="text-xs text-gray-500">SKU: PLN-001</p>
                                         </div>
                                     </div>
                                 </td>
