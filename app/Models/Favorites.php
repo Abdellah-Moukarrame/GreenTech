@@ -12,5 +12,5 @@ class Favorites extends Model
     public function Products(){
         return $this->hasMany(Product::class,'product_id');
     }
-    protected $fillable = ['id','user_id','product_id'];
+    protected $fillable = ['user_id','product_id'];
 }
