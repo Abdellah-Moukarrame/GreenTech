@@ -11,10 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('favorites', function (Blueprint $table) {
+        Schema::create('permissions',function (Blueprint  $table){
             $table->id();
-            $table->foreignId('user_id')->constrained('utilasateures')->onDelete('cascade');
-            $table->foreignId('product_id')->constrained('products')->onDelete('cascade');
+            $table->timestamps();
         });
     }
 
@@ -23,5 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
+        //
     }
 };
