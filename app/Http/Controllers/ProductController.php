@@ -11,10 +11,7 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function __construct()
-    {
-        
-    }
+    
 
     public function index(Request $request)
     {
@@ -49,7 +46,7 @@ class ProductController extends Controller
             'price' => $request->price,
             'category_id' => $request->category
         ]);
-        return redirect()->route("admin.dashboard");
+        return redirect()->route("admin");
     }
 
     /**
@@ -90,7 +87,7 @@ class ProductController extends Controller
         ]);
 
         $product->save();
-        return redirect()->route('admin.dashboard');
+        return redirect()->route('admin');
     }
 
     /**
@@ -100,7 +97,7 @@ class ProductController extends Controller
     {
         $product = Product::findOrFail($id);
         $product->delete();
-        return redirect()->route('admin.dashboard');
+        return redirect()->route('admin');
 
     }
 }
