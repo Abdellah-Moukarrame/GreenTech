@@ -16,7 +16,8 @@ class HomeController extends Controller
                 'price'
             ],'like','%'.$request->search.'%');
         })->get();
+        $var = $request->search;
         $categories = Category::all();
-        return view('home', compact('products', 'categories'));
+        return view('home', compact('products', 'categories','var'));
     }
 }
