@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Admin - GreenTech Solutions</title>
+    <title>Gestion des Utilisateurs - GreenTech Solutions</title>
     @vite('resources/css/app.css')
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap');
@@ -164,12 +164,12 @@
             transform: scale(1.1);
         }
 
-        .btn-view {
+        .btn-permissions {
             background: #e0e7ff;
             color: #4338ca;
         }
 
-        .btn-view:hover {
+        .btn-permissions:hover {
             background: #6366f1;
             color: white;
             transform: scale(1.1);
@@ -184,26 +184,46 @@
             display: inline-block;
         }
 
-        .badge-success {
+        .badge-admin {
+            background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);
+            color: white;
+        }
+
+        .badge-manager {
+            background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);
+            color: white;
+        }
+
+        .badge-editor {
+            background: linear-gradient(135deg, #7c3aed 0%, #8b5cf6 100%);
+            color: white;
+        }
+
+        .badge-moderator {
+            background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+            color: white;
+        }
+
+        .badge-user {
+            background: linear-gradient(135deg, #6b7280 0%, #9ca3af 100%);
+            color: white;
+        }
+
+        .badge-active {
             background: #d1fae5;
             color: #065f46;
         }
 
-        .badge-warning {
-            background: #fef3c7;
-            color: #92400e;
-        }
-
-        .badge-danger {
+        .badge-inactive {
             background: #fee2e2;
             color: #991b1b;
         }
 
-        /* Product image thumbnail */
-        .product-thumb {
-            width: 50px;
-            height: 50px;
-            border-radius: 0.5rem;
+        /* Avatar styles */
+        .user-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 0.75rem;
             object-fit: cover;
             border: 2px solid #f3f4f6;
         }
@@ -223,6 +243,49 @@
 
         .icon-gradient-orange {
             background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
+        }
+
+        /* Search box */
+        .search-box {
+            position: relative;
+        }
+
+        .search-box input {
+            padding: 0.75rem 1rem 0.75rem 3rem;
+            border-radius: 0.75rem;
+            border: 1px solid #e5e7eb;
+            width: 300px;
+            transition: all 0.3s ease;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: var(--sage);
+            box-shadow: 0 0 0 3px rgba(82, 183, 136, 0.1);
+        }
+
+        .search-box svg {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #9ca3af;
+        }
+
+        /* Filter dropdown */
+        .filter-select {
+            padding: 0.75rem 1rem;
+            border-radius: 0.75rem;
+            border: 1px solid #e5e7eb;
+            background: white;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .filter-select:focus {
+            outline: none;
+            border-color: var(--sage);
+            box-shadow: 0 0 0 3px rgba(82, 183, 136, 0.1);
         }
 
         .notification-badge {
@@ -259,8 +322,7 @@
 
             <!-- Navigation -->
             <nav class="space-y-2">
-                <a href="/admin/dashboard"
-                    class="sidebar-link active flex items-center gap-3 px-4 py-3 text-white rounded-lg">
+                <a href="/admin/dashboard" class="sidebar-link flex items-center gap-3 px-4 py-3 text-white rounded-lg">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6">
@@ -277,13 +339,23 @@
                     <span class="font-medium">Produits</span>
                 </a>
 
-                <a href="/admin/manage_user" class="sidebar-link flex items-center gap-3 px-4 py-3 text-white rounded-lg">
+                <a href="/admin/users"
+                    class="sidebar-link active flex items-center gap-3 px-4 py-3 text-white rounded-lg">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z">
                         </path>
                     </svg>
-                    <span class="font-medium">Utilisateures</span>
+                    <span class="font-medium">Utilisateurs</span>
+                </a>
+
+                <a href="/admin/roles" class="sidebar-link flex items-center gap-3 px-4 py-3 text-white rounded-lg">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z">
+                        </path>
+                    </svg>
+                    <span class="font-medium">Rôles & Permissions</span>
                 </a>
 
                 <a href="/admin/categories"
@@ -308,9 +380,9 @@
                     <span class="font-medium">Retour au site</span>
                 </a>
                 <form action="{{ route('logout') }}" method="post">
-
                     @csrf
-                    <button type="submit" class="sidebar-link flex items-center gap-3 px-4 py-3 text-white rounded-lg">
+                    <button type="submit"
+                        class="sidebar-link flex items-center gap-3 px-4 py-3 text-white rounded-lg w-full text-left">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1">
@@ -329,8 +401,8 @@
         <header class="bg-white rounded-2xl shadow-sm p-6 mb-8">
             <div class="flex items-center justify-between">
                 <div>
-                    <h1 class="text-3xl font-bold text-gray-800 heading-font">Tableau de bord</h1>
-                    <p class="text-gray-500 mt-1">Bienvenue sur votre espace de gestion</p>
+                    <h1 class="text-3xl font-bold text-gray-800 heading-font">Gestion des Utilisateurs</h1>
+                    <p class="text-gray-500 mt-1">Gérez les utilisateurs, leurs rôles et permissions</p>
                 </div>
 
                 <div class="flex items-center gap-4">
@@ -362,36 +434,6 @@
             <!-- Card 1 -->
             <div class="stat-card">
                 <div class="flex items-center justify-between mb-4">
-                    <div class="w-12 h-12 rounded-xl icon-gradient-green flex items-center justify-center">
-                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
-                        </svg>
-                    </div>
-                    <span class="text-xs font-semibold text-green-600 bg-green-100 px-2 py-1 rounded-full">+12%</span>
-                </div>
-                <h3 class="text-gray-500 text-sm font-medium mb-1">Total Produits</h3>
-                <p class="text-3xl font-bold text-gray-800">524</p>
-            </div>
-
-            <!-- Card 2 -->
-            <div class="stat-card">
-                <div class="flex items-center justify-between mb-4">
-                    <div class="w-12 h-12 rounded-xl icon-gradient-blue flex items-center justify-center">
-                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
-                        </svg>
-                    </div>
-                    <span class="text-xs font-semibold text-blue-600 bg-blue-100 px-2 py-1 rounded-full">+8%</span>
-                </div>
-                <h3 class="text-gray-500 text-sm font-medium mb-1">Commandes</h3>
-                <p class="text-3xl font-bold text-gray-800">1,248</p>
-            </div>
-
-            <!-- Card 3 -->
-            <div class="stat-card">
-                <div class="flex items-center justify-between mb-4">
                     <div class="w-12 h-12 rounded-xl icon-gradient-purple flex items-center justify-center">
                         <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -400,10 +442,43 @@
                         </svg>
                     </div>
                     <span
-                        class="text-xs font-semibold text-purple-600 bg-purple-100 px-2 py-1 rounded-full">+23%</span>
+                        class="text-xs font-semibold text-purple-600 bg-purple-100 px-2 py-1 rounded-full">Total</span>
                 </div>
-                <h3 class="text-gray-500 text-sm font-medium mb-1">Clients</h3>
-                <p class="text-3xl font-bold text-gray-800">3,842</p>
+                <h3 class="text-gray-500 text-sm font-medium mb-1">Utilisateurs</h3>
+                <p class="text-3xl font-bold text-gray-800">47</p>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="stat-card">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="w-12 h-12 rounded-xl icon-gradient-green flex items-center justify-center">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z">
+                            </path>
+                        </svg>
+                    </div>
+                    <span
+                        class="text-xs font-semibold text-green-600 bg-green-100 px-2 py-1 rounded-full">Actifs</span>
+                </div>
+                <h3 class="text-gray-500 text-sm font-medium mb-1">Utilisateurs Actifs</h3>
+                <p class="text-3xl font-bold text-gray-800">42</p>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="stat-card">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="w-12 h-12 rounded-xl icon-gradient-blue flex items-center justify-center">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z">
+                            </path>
+                        </svg>
+                    </div>
+                    <span class="text-xs font-semibold text-blue-600 bg-blue-100 px-2 py-1 rounded-full">Total</span>
+                </div>
+                <h3 class="text-gray-500 text-sm font-medium mb-1">Rôles Définis</h3>
+                <p class="text-3xl font-bold text-gray-800">7</p>
             </div>
 
             <!-- Card 4 -->
@@ -412,34 +487,56 @@
                     <div class="w-12 h-12 rounded-xl icon-gradient-orange flex items-center justify-center">
                         <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
+                                d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z">
                             </path>
                         </svg>
                     </div>
                     <span
-                        class="text-xs font-semibold text-orange-600 bg-orange-100 px-2 py-1 rounded-full">+18%</span>
+                        class="text-xs font-semibold text-orange-600 bg-orange-100 px-2 py-1 rounded-full">Total</span>
                 </div>
-                <h3 class="text-gray-500 text-sm font-medium mb-1">Revenus</h3>
-                <p class="text-3xl font-bold text-gray-800">247K DH</p>
+                <h3 class="text-gray-500 text-sm font-medium mb-1">Permissions</h3>
+                <p class="text-3xl font-bold text-gray-800">24</p>
             </div>
         </div>
 
-        <!-- Products Section -->
+        <!-- Users Management Section -->
         <div class="bg-white rounded-2xl shadow-sm p-6">
-            <!-- Section Header -->
-            <div class="flex items-center justify-between mb-6">
+            <!-- Section Header with Search & Filters -->
+            <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 mb-6">
                 <div>
-                    <h2 class="text-2xl font-bold text-gray-800 heading-font">Gestion des Produits</h2>
-                    <p class="text-gray-500 text-sm mt-1">Gérez votre catalogue de produits écologiques</p>
+                    <h2 class="text-2xl font-bold text-gray-800 heading-font">Liste des Utilisateurs</h2>
+                    <p class="text-gray-500 text-sm mt-1">Gérez les comptes et les accès</p>
                 </div>
 
-                <a href="/admin/create" class="btn-primary">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4">
-                        </path>
-                    </svg>
-                    Ajouter un produit
-                </a>
+                <div class="flex flex-col sm:flex-row items-start sm:items-center gap-3">
+                    <!-- Search -->
+                    <div class="search-box">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                        </svg>
+                        <input type="text" placeholder="Rechercher un utilisateur...">
+                    </div>
+
+                    <!-- Filter by Role -->
+                    <select class="filter-select">
+                        <option value="">Tous les rôles</option>
+                        <option value="admin">Admin</option>
+                        <option value="manager">Gestionnaire</option>
+                        <option value="editor">Éditeur</option>
+                        <option value="moderator">Modérateur</option>
+                        <option value="user">Utilisateur</option>
+                    </select>
+
+                    <!-- Add User Button -->
+                    <a href="/admin/create_user" class="btn-primary whitespace-nowrap">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4">
+                            </path>
+                        </svg>
+                        Nouvel utilisateur
+                    </a>
+                </div>
             </div>
 
             <!-- Table -->
@@ -447,50 +544,37 @@
                 <table>
                     <thead>
                         <tr>
-                            <th>Produit</th>
-                            <th>Catégorie</th>
-                            <th>Prix</th>
+                            <th>Utilisateur</th>
+                            <th>Email</th>
+                            <th>Rôle</th>
+                            <th>Date d'inscription</th>
                             <th class="text-center">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($products as $product)
+                        @foreach ($users as $user)
                             <tr>
                                 <td>
                                     <div class="flex items-center gap-3">
-                                        <img src="https://images.unsplash.com/photo-1463936575829-25148e1db1b8?w=100&h=100&fit=crop"
-                                            class="product-thumb" alt="Product">
+                                        <img src="https://ui-avatars.com/api/?name=Jean+Dupont&background=dc2626&color=fff"
+                                            class="user-avatar" alt="User">
                                         <div>
-                                            <p class="font-semibold text-gray-800">{{ $product->name }}</p>
+                                            <p class="font-semibold text-gray-800">{{$user->name}}</p>
                                         </div>
                                     </div>
                                 </td>
                                 <td>
-                                    @foreach ($categories as $category)
-                                        @if ($category->id == $product->category_id)
-                                            <span class="text-sm text-gray-600">{{ $category->name }}</span>
-                                        @endif
-                                    @endforeach
-
+                                    <span class="text-sm text-gray-600">{{$user->email}}</span>
                                 </td>
                                 <td>
-                                    <span class="font-semibold text-gray-800">{{ $product->price . 'Dh' }} </span>
+                                    <span class="badge badge-admin">Admin</span>
+                                </td>
+                                <td>
+                                    <span class="text-sm text-gray-600">{{$user->created_at}}</span>
                                 </td>
                                 <td>
                                     <div class="flex items-center justify-center gap-2">
-                                        <a href="/admin/show/{{ $product->id }}" class="btn-icon btn-view"
-                                            title="Voir">
-                                            <svg class="w-4 h-4" fill="none" stroke="currentColor"
-                                                viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z">
-                                                </path>
-                                            </svg>
-                                        </a>
-                                        <a href="/admin/update/{{ $product->id }}" class="btn-icon btn-edit"
-                                            title="Modifier">
+                                        <a href="/admin/users/1/edit" class="btn-icon btn-edit" title="Modifier">
                                             <svg class="w-4 h-4" fill="none" stroke="currentColor"
                                                 viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -498,31 +582,34 @@
                                                 </path>
                                             </svg>
                                         </a>
-                                        <form action="{{ route('products.destroy', $product->id) }}" method="POST">
-                                            @csrf
-                                            @method('DELETE')
-
-                                            <button type="submit" class="btn-icon btn-delete" title="Supprimer">
-                                                <svg class="w-4 h-4" fill="none" stroke="currentColor"
-                                                    viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                                        stroke-width="2"
-                                                        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16">
-                                                    </path>
-                                                </svg>
-                                            </button>
-                                        </form>
+                                        <a href="/admin/users/1/permissions" class="btn-icon btn-permissions"
+                                            title="Gérer permissions">
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor"
+                                                viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z">
+                                                </path>
+                                            </svg>
+                                        </a>
+                                        <button class="btn-icon btn-delete" title="Supprimer">
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor"
+                                                viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16">
+                                                </path>
+                                            </svg>
+                                        </button>
                                     </div>
                                 </td>
                             </tr>
                         @endforeach
 
-
                     </tbody>
                 </table>
-                {{ $products->links() }}
-
             </div>
+
+            <!-- Pagination -->
+            {{$users->links()}}
         </div>
     </main>
 

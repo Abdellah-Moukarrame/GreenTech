@@ -314,6 +314,7 @@
                 <div class="flex items-center gap-3">
                     <div class="relative flex-1 md:flex-initial">
                         <input type="text" name="search" placeholder="Rechercher un produit..."
+                        value="{{$var}}"
                             class="search-glow border border-gray-200 rounded-2xl pl-10 pr-4 py-2.5 w-full md:w-72 focus:outline-none focus:border-sage transition-all text-sm bg-white/80">
                         <svg class="w-5 h-5 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" fill="none"
                             stroke="currentColor" viewBox="0 0 24 24">
@@ -368,13 +369,8 @@
                     <div class="relative">
                         <img src="https://images.unsplash.com/photo-1463936575829-25148e1db1b8?w=400&h=300&fit=crop"
                             class="w-full h-56 object-cover" alt="Plante Verte">
-                        <div class="absolute top-4 left-4">
-                            <span class="bio-badge text-white text-xs font-semibold px-3 py-1.5 rounded-full">
-                                🌱 Bio
-                            </span>
-                        </div>
                         <div class="absolute top-4 right-4">
-                            <button
+                            <a href='/auth/login'
                                 class="w-10 h-10 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-white transition-all shadow-lg">
                                 <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor"
                                     viewBox="0 0 24 24">
@@ -382,7 +378,7 @@
                                         d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z">
                                     </path>
                                 </svg>
-                            </button>
+                            </a>
                         </div>
                     </div>
 
