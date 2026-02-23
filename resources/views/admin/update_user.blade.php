@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Créer un Utilisateur - GreenTech Solutions</title>
+    <title>Modifier l'Utilisateur - GreenTech Solutions</title>
     @vite('resources/css/app.css')
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap');
@@ -54,7 +54,7 @@
         }
 
         /* Form styles */
-        .form-card {
+        .form-container {
             background: white;
             border-radius: 1.5rem;
             padding: 2rem;
@@ -74,71 +74,53 @@
             font-size: 0.875rem;
         }
 
-        .form-input {
+        .form-label .required {
+            color: #ef4444;
+            margin-left: 0.25rem;
+        }
+
+        .form-input,
+        .form-select,
+        .form-textarea {
             width: 100%;
             padding: 0.75rem 1rem;
             border: 1px solid #e5e7eb;
             border-radius: 0.75rem;
-            transition: all 0.3s ease;
             font-size: 0.875rem;
-        }
-
-        .form-input:focus {
-            outline: none;
-            border-color: var(--sage);
-            box-shadow: 0 0 0 3px rgba(82, 183, 136, 0.1);
-        }
-
-        .form-select {
-            width: 100%;
-            padding: 0.75rem 1rem;
-            border: 1px solid #e5e7eb;
-            border-radius: 0.75rem;
             transition: all 0.3s ease;
-            font-size: 0.875rem;
             background: white;
-            cursor: pointer;
         }
 
-        .form-select:focus {
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
             outline: none;
             border-color: var(--sage);
             box-shadow: 0 0 0 3px rgba(82, 183, 136, 0.1);
         }
 
-        /* Checkbox styles */
-        .permission-card {
-            background: #f9fafb;
-            border: 1px solid #e5e7eb;
-            border-radius: 0.75rem;
-            padding: 1rem;
-            transition: all 0.3s ease;
+        .form-textarea {
+            min-height: 100px;
+            resize: vertical;
         }
 
-        .permission-card:hover {
-            border-color: var(--sage);
-            background: rgba(82, 183, 136, 0.05);
+        .form-help {
+            font-size: 0.75rem;
+            color: #6b7280;
+            margin-top: 0.25rem;
         }
 
-        .permission-checkbox {
-            width: 1.25rem;
-            height: 1.25rem;
-            border-radius: 0.375rem;
-            border: 2px solid #d1d5db;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .permission-checkbox:checked {
-            background: linear-gradient(135deg, var(--sage) 0%, var(--mint) 100%);
-            border-color: var(--sage);
+        .form-error {
+            font-size: 0.75rem;
+            color: #ef4444;
+            margin-top: 0.25rem;
         }
 
         /* Button styles */
         .btn-primary {
             background: linear-gradient(to right, var(--forest-mid), var(--sage));
             color: white;
-            padding: 0.875rem 2rem;
+            padding: 0.75rem 1.5rem;
             border-radius: 0.75rem;
             font-weight: 600;
             transition: all 0.3s ease;
@@ -158,7 +140,7 @@
         .btn-secondary {
             background: white;
             color: #374151;
-            padding: 0.875rem 2rem;
+            padding: 0.75rem 1.5rem;
             border-radius: 0.75rem;
             font-weight: 600;
             transition: all 0.3s ease;
@@ -175,45 +157,144 @@
             border-color: #d1d5db;
         }
 
-        /* Section header */
-        .section-header {
-            background: linear-gradient(135deg, var(--forest-mid) 0%, var(--sage) 100%);
-            color: white;
-            padding: 1rem 1.5rem;
+        /* Avatar upload */
+        .avatar-upload {
+            position: relative;
+            width: 120px;
+            height: 120px;
+        }
+
+        .avatar-preview {
+            width: 120px;
+            height: 120px;
+            border-radius: 1rem;
+            object-fit: cover;
+            border: 3px solid #f3f4f6;
+        }
+
+        .avatar-upload-btn {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(to right, var(--forest-mid), var(--sage));
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(45, 106, 79, 0.3);
+        }
+
+        .avatar-upload-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .avatar-upload input[type="file"] {
+            display: none;
+        }
+
+        /* Checkbox and Radio styles */
+        .checkbox-group,
+        .radio-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .checkbox-item,
+        .radio-item {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem;
+            border: 1px solid #e5e7eb;
             border-radius: 0.75rem;
-            margin-bottom: 1.5rem;
-            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .checkbox-item:hover,
+        .radio-item:hover {
+            background: rgba(82, 183, 136, 0.05);
+            border-color: var(--sage);
+        }
+
+        .checkbox-item input[type="checkbox"],
+        .radio-item input[type="radio"] {
+            width: 18px;
+            height: 18px;
+            margin-right: 0.75rem;
+            cursor: pointer;
+            accent-color: var(--sage);
         }
 
         /* Toggle switch */
         .toggle-switch {
             position: relative;
-            width: 48px;
-            height: 24px;
-            background: #d1d5db;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: background 0.3s ease;
+            display: inline-block;
+            width: 50px;
+            height: 26px;
         }
 
-        .toggle-switch.active {
-            background: linear-gradient(135deg, var(--sage) 0%, var(--mint) 100%);
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
         }
 
-        .toggle-switch::after {
-            content: '';
+        .toggle-slider {
             position: absolute;
-            top: 2px;
-            left: 2px;
-            width: 20px;
-            height: 20px;
-            background: white;
-            border-radius: 50%;
-            transition: transform 0.3s ease;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #cbd5e1;
+            transition: 0.3s;
+            border-radius: 34px;
         }
 
-        .toggle-switch.active::after {
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: 0.3s;
+            border-radius: 50%;
+        }
+
+        input:checked+.toggle-slider {
+            background: linear-gradient(to right, var(--forest-mid), var(--sage));
+        }
+
+        input:checked+.toggle-slider:before {
             transform: translateX(24px);
+        }
+
+        /* Alert styles */
+        .alert {
+            padding: 1rem 1.25rem;
+            border-radius: 0.75rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .alert-success {
+            background: #d1fae5;
+            color: #065f46;
+            border: 1px solid #6ee7b7;
+        }
+
+        .alert-error {
+            background: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #fca5a5;
         }
 
         .notification-badge {
@@ -228,6 +309,40 @@
             border-radius: 9999px;
             min-width: 18px;
             text-align: center;
+        }
+
+        /* Badge styles */
+        .badge {
+            padding: 0.375rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .badge-admin {
+            background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);
+            color: white;
+        }
+
+        .badge-manager {
+            background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);
+            color: white;
+        }
+
+        .badge-editor {
+            background: linear-gradient(135deg, #7c3aed 0%, #8b5cf6 100%);
+            color: white;
+        }
+
+        .badge-moderator {
+            background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+            color: white;
+        }
+
+        .badge-user {
+            background: linear-gradient(135deg, #6b7280 0%, #9ca3af 100%);
+            color: white;
         }
     </style>
 </head>
@@ -277,8 +392,7 @@
                     <span class="font-medium">Utilisateurs</span>
                 </a>
 
-                <a href="/admin/roles_permessions"
-                    class="sidebar-link flex items-center gap-3 px-4 py-3 text-white rounded-lg">
+                <a href="/admin/roles" class="sidebar-link flex items-center gap-3 px-4 py-3 text-white rounded-lg">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z">
@@ -308,8 +422,7 @@
                     </svg>
                     <span class="font-medium">Retour au site</span>
                 </a>
-                <form action="{{ route('logout') }}" method="post">
-                    @csrf
+                <form action="#" method="post">
                     <button type="submit"
                         class="sidebar-link flex items-center gap-3 px-4 py-3 text-white rounded-lg w-full text-left">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -331,15 +444,16 @@
             <div class="flex items-center justify-between">
                 <div>
                     <div class="flex items-center gap-3 mb-2">
-                        <a href="/admin/users" class="text-gray-400 hover:text-gray-600 transition-colors">
+                        <a href="/admin/users" class="text-sage hover:text-forest-mid transition-colors">
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                                    d="M10 19l-7-7m0 0l7-7m-7 7h18">
+                                </path>
                             </svg>
                         </a>
-                        <h1 class="text-3xl font-bold text-gray-800 heading-font">Créer un Utilisateur</h1>
+                        <h1 class="text-3xl font-bold text-gray-800 heading-font">Modifier l'Utilisateur</h1>
                     </div>
-                    <p class="text-gray-500 mt-1 ml-9">Ajoutez un nouvel utilisateur et définissez ses permissions</p>
+                    <p class="text-gray-500 mt-1">Modifiez les informations et permissions de l'utilisateur</p>
                 </div>
 
                 <div class="flex items-center gap-4">
@@ -366,98 +480,107 @@
             </div>
         </header>
 
-        <!-- Form -->
-        <form action="" method="POST">
+        <!-- Success/Error Messages -->
+        <!-- Uncomment to show success message
+        <div class="alert alert-success">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+            </svg>
+            <span>L'utilisateur a été modifié avec succès!</span>
+        </div>
+        -->
+
+        <!-- Uncomment to show error message
+        <div class="alert alert-error">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+            <div>
+                <strong>Erreur!</strong>
+                <ul class="mt-1">
+                    <li>Le champ email est requis</li>
+                    <li>Le mot de passe doit contenir au moins 8 caractères</li>
+                </ul>
+            </div>
+        </div>
+        -->
+
+        <!-- Edit Form -->
+        <form action="" method="POST" enctype="multipart/form-data">
             @csrf
 
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                <!-- Left Column - Main Info -->
-                <div class="lg:col-span-2 space-y-6">
-                    <!-- Basic Information -->
-                    <div class="form-card">
-                        <div class="section-header">
-                            <div class="flex items-center gap-2">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-                                </svg>
-                                <span>Informations de Base</span>
-                            </div>
-                        </div>
 
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+                <!-- Right Column - Main Form -->
+                <div class="lg:col-span-2">
+                    <div class="form-container">
+                        <h3 class="text-lg font-bold text-gray-800 mb-6 heading-font">Informations Personnelles</h3>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- Full Name -->
+                            <div class="form-group md:col-span-2">
+                                <label class="form-label">
+                                    Nom Complet
+                                    <span class="required">*</span>
+                                </label>
+                                <input type="text" name="name" class="form-input"
+                                    value="{{$user->name}}" required>
+                            </div>
+
+                            <!-- Email -->
                             <div class="form-group">
-                                <label class="form-label">Nom <span class="text-red-500">*</span></label>
-                                <input type="text" name="name" class="form-input" placeholder="Dupont"
-                                    required>
+                                <label class="form-label">
+                                    Adresse Email
+                                    <span class="required">*</span>
+                                </label>
+                                <input type="email" name="email" class="form-input"
+                                    value="{{$user->email}}" required>
+                            </div>
+
+                            <!-- Password (Optional) -->
+                            <div class="form-group">
+                                <label class="form-label">Nouveau Mot de Passe</label>
+                                <input type="password" name="password" class="form-input">
+                                <p class="form-help">Laissez vide pour conserver le mot de passe actuel</p>
+                            </div>
+
+                            <!-- Password Confirmation -->
+                            <div class="form-group">
+                                <label class="form-label">Confirmer le Mot de Passe</label>
+                                <input type="password" name="password_confirmation" class="form-input">
                             </div>
                         </div>
 
+                        <hr class="my-6 border-gray-200">
+
+                        <h3 class="text-lg font-bold text-gray-800 mb-6 heading-font">Rôle et Permissions</h3>
+
+                        <!-- Role Selection -->
                         <div class="form-group">
-                            <label class="form-label">Adresse Email <span class="text-red-500">*</span></label>
-                            <input type="email" name="email" class="form-input"
-                                placeholder="jean.dupont@greentech.com" required>
-                        </div>
-
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div class="form-group">
-                                <label class="form-label">Mot de passe <span class="text-red-500">*</span></label>
-                                <input type="password" name="password" class="form-input" placeholder="••••••••"
-                                    required>
-                            </div>
-                        </div>
-                    </div>
-
-
-                </div>
-
-                <!-- Right Column - Role & Status -->
-                <div class="space-y-6">
-                    <!-- Role Assignment -->
-                    <div class="form-card">
-                        <div class="section-header">
-                            <div class="flex items-center gap-2">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z">
-                                    </path>
-                                </svg>
-                                <span>Rôle Principal</span>
-                            </div>
-                        </div>
-
-                        <div class="form-group mb-0">
-                            <label class="form-label">Sélectionner un rôle <span class="text-red-500">*</span></label>
-                            <select name="role_id" class="form-select" required>
-                                <option value="">Choisir un rôle</option>
+                            <label class="form-label">
+                                Rôle Principal
+                                <span class="required">*</span>
+                            </label>
+                            <select name="role" class="form-select" required>
+                                <option value="">Sélectionner un rôle</option>
                                 @foreach ($roles as $role)
                                     <option value="{{$role->id}}">{{$role->name}}</option>
                                 @endforeach
                             </select>
+                            <p class="form-help">Le rôle détermine les permissions de base de l'utilisateur</p>
                         </div>
-
-                        <div class="mt-4 p-3 bg-blue-50 rounded-lg">
-                            <p class="text-xs text-blue-700">
-                                <strong>Info :</strong> Le rôle définit les permissions de base. Vous pouvez ajouter des
-                                permissions supplémentaires ci-dessus.
-                            </p>
-                        </div>
-                    </div>
-
-
-
-                    <!-- Action Buttons -->
-                    <div class="form-card">
-                        <div class="space-y-3">
-                            <button type="submit" class="btn-primary w-full justify-center">
+                        <!-- Action Buttons -->
+                        <div class="flex items-center gap-4 mt-8">
+                            <button type="submit" class="btn-primary">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M5 13l4 4L19 7"></path>
                                 </svg>
-                                Créer l'utilisateur
+                                Enregistrer les modifications
                             </button>
-
-                            <a href="/admin/users" class="btn-secondary w-full justify-center">
+                            <a href="/admin/users" class="btn-secondary">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M6 18L18 6M6 6l12 12"></path>
@@ -471,10 +594,7 @@
         </form>
     </main>
 
-    <script>
-        // Avatar Preview
-        //
-    </script>
+
 
 </body>
 

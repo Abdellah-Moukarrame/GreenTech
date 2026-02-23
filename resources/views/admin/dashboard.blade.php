@@ -277,7 +277,8 @@
                     <span class="font-medium">Produits</span>
                 </a>
 
-                <a href="/admin/manage_user" class="sidebar-link flex items-center gap-3 px-4 py-3 text-white rounded-lg">
+                <a href="/admin/manage_user"
+                    class="sidebar-link flex items-center gap-3 px-4 py-3 text-white rounded-lg">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z">
@@ -432,6 +433,17 @@
                     <h2 class="text-2xl font-bold text-gray-800 heading-font">Gestion des Produits</h2>
                     <p class="text-gray-500 text-sm mt-1">Gérez votre catalogue de produits écologiques</p>
                 </div>
+                <!-- Download Button -->
+                <a href="{{route('admin.export')}}"
+                    class="flex items-center gap-2 px-4 py-2.5 bg-white border-2 border-gray-300 text-gray-700 rounded-xl font-semibold hover:bg-gray-50 hover:border-gray-400 transition-all duration-200 shadow-sm">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
+                        </path>
+                    </svg>
+                    Exporter
+                </a>
+
 
                 <a href="/admin/create" class="btn-primary">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

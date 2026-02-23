@@ -4,8 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Créer un Utilisateur - GreenTech Solutions</title>
+    <title>Créer un Rôle - GreenTech Solutions</title>
     @vite('resources/css/app.css')
+
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap');
 
@@ -20,6 +21,8 @@
         body {
             font-family: 'Inter', sans-serif;
             background: linear-gradient(135deg, #faf8f3 0%, #f1f8f4 100%);
+            margin: 0;
+            padding: 0;
         }
 
         .heading-font {
@@ -40,6 +43,7 @@
         .sidebar-link {
             transition: all 0.3s ease;
             border-left: 3px solid transparent;
+            text-decoration: none;
         }
 
         .sidebar-link:hover,
@@ -54,7 +58,7 @@
         }
 
         /* Form styles */
-        .form-card {
+        .form-container {
             background: white;
             border-radius: 1.5rem;
             padding: 2rem;
@@ -74,71 +78,47 @@
             font-size: 0.875rem;
         }
 
-        .form-input {
+        .form-label .required {
+            color: #ef4444;
+            margin-left: 0.25rem;
+        }
+
+        .form-input,
+        .form-select,
+        .form-textarea {
             width: 100%;
             padding: 0.75rem 1rem;
             border: 1px solid #e5e7eb;
             border-radius: 0.75rem;
-            transition: all 0.3s ease;
             font-size: 0.875rem;
-        }
-
-        .form-input:focus {
-            outline: none;
-            border-color: var(--sage);
-            box-shadow: 0 0 0 3px rgba(82, 183, 136, 0.1);
-        }
-
-        .form-select {
-            width: 100%;
-            padding: 0.75rem 1rem;
-            border: 1px solid #e5e7eb;
-            border-radius: 0.75rem;
             transition: all 0.3s ease;
-            font-size: 0.875rem;
             background: white;
-            cursor: pointer;
         }
 
-        .form-select:focus {
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
             outline: none;
             border-color: var(--sage);
             box-shadow: 0 0 0 3px rgba(82, 183, 136, 0.1);
         }
 
-        /* Checkbox styles */
-        .permission-card {
-            background: #f9fafb;
-            border: 1px solid #e5e7eb;
-            border-radius: 0.75rem;
-            padding: 1rem;
-            transition: all 0.3s ease;
+        .form-textarea {
+            min-height: 100px;
+            resize: vertical;
         }
 
-        .permission-card:hover {
-            border-color: var(--sage);
-            background: rgba(82, 183, 136, 0.05);
-        }
-
-        .permission-checkbox {
-            width: 1.25rem;
-            height: 1.25rem;
-            border-radius: 0.375rem;
-            border: 2px solid #d1d5db;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .permission-checkbox:checked {
-            background: linear-gradient(135deg, var(--sage) 0%, var(--mint) 100%);
-            border-color: var(--sage);
+        .form-help {
+            font-size: 0.75rem;
+            color: #6b7280;
+            margin-top: 0.25rem;
         }
 
         /* Button styles */
         .btn-primary {
             background: linear-gradient(to right, var(--forest-mid), var(--sage));
             color: white;
-            padding: 0.875rem 2rem;
+            padding: 0.75rem 1.5rem;
             border-radius: 0.75rem;
             font-weight: 600;
             transition: all 0.3s ease;
@@ -158,7 +138,7 @@
         .btn-secondary {
             background: white;
             color: #374151;
-            padding: 0.875rem 2rem;
+            padding: 0.75rem 1.5rem;
             border-radius: 0.75rem;
             font-weight: 600;
             transition: all 0.3s ease;
@@ -175,45 +155,75 @@
             border-color: #d1d5db;
         }
 
-        /* Section header */
-        .section-header {
-            background: linear-gradient(135deg, var(--forest-mid) 0%, var(--sage) 100%);
-            color: white;
-            padding: 1rem 1.5rem;
+        /* Checkbox styles */
+        .permissions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1rem;
+        }
+
+        .permission-category {
+            background: #f9fafb;
             border-radius: 0.75rem;
-            margin-bottom: 1.5rem;
+            padding: 1.25rem;
+            border: 1px solid #e5e7eb;
+        }
+
+        .category-title {
             font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
-        /* Toggle switch */
-        .toggle-switch {
-            position: relative;
-            width: 48px;
-            height: 24px;
-            background: #d1d5db;
-            border-radius: 12px;
+        .checkbox-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: flex-start;
+            padding: 0.75rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.5rem;
             cursor: pointer;
-            transition: background 0.3s ease;
-        }
-
-        .toggle-switch.active {
-            background: linear-gradient(135deg, var(--sage) 0%, var(--mint) 100%);
-        }
-
-        .toggle-switch::after {
-            content: '';
-            position: absolute;
-            top: 2px;
-            left: 2px;
-            width: 20px;
-            height: 20px;
+            transition: all 0.3s ease;
             background: white;
-            border-radius: 50%;
-            transition: transform 0.3s ease;
         }
 
-        .toggle-switch.active::after {
-            transform: translateX(24px);
+        .checkbox-item:hover {
+            background: rgba(82, 183, 136, 0.05);
+            border-color: var(--sage);
+        }
+
+        .checkbox-item input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            margin-right: 0.75rem;
+            margin-top: 0.125rem;
+            cursor: pointer;
+            accent-color: var(--sage);
+            flex-shrink: 0;
+        }
+
+        .checkbox-content p {
+            margin: 0;
+        }
+
+        .checkbox-content .permission-name {
+            font-weight: 600;
+            color: #1f2937;
+            font-size: 0.875rem;
+        }
+
+        .checkbox-content .permission-desc {
+            font-size: 0.75rem;
+            color: #6b7280;
+            margin-top: 0.125rem;
         }
 
         .notification-badge {
@@ -229,6 +239,221 @@
             min-width: 18px;
             text-align: center;
         }
+
+        /* Utility classes */
+        .flex {
+            display: flex;
+        }
+
+        .items-center {
+            align-items: center;
+        }
+
+        .justify-between {
+            justify-content: space-between;
+        }
+
+        .gap-2 {
+            gap: 0.5rem;
+        }
+
+        .gap-3 {
+            gap: 0.75rem;
+        }
+
+        .gap-4 {
+            gap: 1rem;
+        }
+
+        .p-3 {
+            padding: 0.75rem;
+        }
+
+        .p-6 {
+            padding: 1.5rem;
+        }
+
+        .p-8 {
+            padding: 2rem;
+        }
+
+        .px-4 {
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+
+        .py-3 {
+            padding-top: 0.75rem;
+            padding-bottom: 0.75rem;
+        }
+
+        .mb-2 {
+            margin-bottom: 0.5rem;
+        }
+
+        .mb-8 {
+            margin-bottom: 2rem;
+        }
+
+        .mb-10 {
+            margin-bottom: 2.5rem;
+        }
+
+        .mt-1 {
+            margin-top: 0.25rem;
+        }
+
+        .mt-8 {
+            margin-top: 2rem;
+        }
+
+        .text-white {
+            color: white;
+        }
+
+        .text-gray-500 {
+            color: #6b7280;
+        }
+
+        .text-gray-800 {
+            color: #1f2937;
+        }
+
+        .text-xs {
+            font-size: 0.75rem;
+        }
+
+        .text-sm {
+            font-size: 0.875rem;
+        }
+
+        .text-2xl {
+            font-size: 1.5rem;
+        }
+
+        .text-3xl {
+            font-size: 1.875rem;
+        }
+
+        .font-medium {
+            font-weight: 500;
+        }
+
+        .font-semibold {
+            font-weight: 600;
+        }
+
+        .font-bold {
+            font-weight: 700;
+        }
+
+        .rounded-xl {
+            border-radius: 0.75rem;
+        }
+
+        .rounded-2xl {
+            border-radius: 1rem;
+        }
+
+        .rounded-lg {
+            border-radius: 0.5rem;
+        }
+
+        .shadow-sm {
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        }
+
+        .space-y-2>*+* {
+            margin-top: 0.5rem;
+        }
+
+        .border-l {
+            border-left: 1px solid #e5e7eb;
+        }
+
+        .pl-4 {
+            padding-left: 1rem;
+        }
+
+        .w-5 {
+            width: 1.25rem;
+        }
+
+        .h-5 {
+            height: 1.25rem;
+        }
+
+        .w-6 {
+            width: 1.5rem;
+        }
+
+        .h-6 {
+            height: 1.5rem;
+        }
+
+        .w-10 {
+            width: 2.5rem;
+        }
+
+        .h-10 {
+            height: 2.5rem;
+        }
+
+        .w-12 {
+            width: 3rem;
+        }
+
+        .h-12 {
+            height: 3rem;
+        }
+
+        .relative {
+            position: relative;
+        }
+
+        .absolute {
+            position: absolute;
+        }
+
+        .bottom-0 {
+            bottom: 0;
+        }
+
+        .left-0 {
+            left: 0;
+        }
+
+        .right-0 {
+            right: 0;
+        }
+
+        .border-t {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .w-full {
+            width: 100%;
+        }
+
+        .bg-white {
+            background: white;
+        }
+
+        .bg-gray-100 {
+            background: #f3f4f6;
+        }
+
+        .hover\:bg-gray-200:hover {
+            background: #e5e7eb;
+        }
+
+        .transition-colors {
+            transition: color 0.3s, background-color 0.3s;
+        }
+
+        .text-right {
+            text-align: right;
+        }
     </style>
 </head>
 
@@ -239,12 +464,14 @@
         <div class="p-6">
             <!-- Logo -->
             <div class="flex items-center gap-3 mb-10">
-                <div class="w-12 h-12 bg-white rounded-xl flex items-center justify-center transform rotate-6 shadow-xl">
-                    <span class="text-2xl font-bold transform -rotate-6" style="color: var(--forest-dark);">G</span>
+                <div class="w-12 h-12 bg-white rounded-xl flex items-center justify-center"
+                    style="transform: rotate(6deg); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);">
+                    <span class="text-2xl font-bold"
+                        style="transform: rotate(-6deg); color: var(--forest-dark);">G</span>
                 </div>
                 <div>
                     <h1 class="text-xl font-bold text-white heading-font">GreenTech</h1>
-                    <p class="text-xs text-mint">Admin Dashboard</p>
+                    <p class="text-xs" style="color: var(--mint);">Admin Dashboard</p>
                 </div>
             </div>
 
@@ -267,8 +494,7 @@
                     <span class="font-medium">Produits</span>
                 </a>
 
-                <a href="/admin/manage_user"
-                    class="sidebar-link active flex items-center gap-3 px-4 py-3 text-white rounded-lg">
+                <a href="/admin/manage_user" class="sidebar-link flex items-center gap-3 px-4 py-3 text-white rounded-lg">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z">
@@ -278,7 +504,7 @@
                 </a>
 
                 <a href="/admin/roles_permessions"
-                    class="sidebar-link flex items-center gap-3 px-4 py-3 text-white rounded-lg">
+                    class="sidebar-link active flex items-center gap-3 px-4 py-3 text-white rounded-lg">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z">
@@ -299,7 +525,7 @@
             </nav>
 
             <!-- Bottom Section -->
-            <div class="absolute bottom-0 left-0 right-0 p-6 border-t border-white/10">
+            <div class="absolute bottom-0 left-0 right-0 p-6 border-t">
                 <a href="/" class="sidebar-link flex items-center gap-3 px-4 py-3 text-white rounded-lg mb-2">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -308,8 +534,7 @@
                     </svg>
                     <span class="font-medium">Retour au site</span>
                 </a>
-                <form action="{{ route('logout') }}" method="post">
-                    @csrf
+                <form action="#" method="post">
                     <button type="submit"
                         class="sidebar-link flex items-center gap-3 px-4 py-3 text-white rounded-lg w-full text-left">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -331,15 +556,16 @@
             <div class="flex items-center justify-between">
                 <div>
                     <div class="flex items-center gap-3 mb-2">
-                        <a href="/admin/users" class="text-gray-400 hover:text-gray-600 transition-colors">
+                        <a href="{{ url()->previous() }}" style="color: var(--sage); transition: color 0.3s;">
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                                    d="M10 19l-7-7m0 0l7-7m-7 7h18">
+                                </path>
                             </svg>
                         </a>
-                        <h1 class="text-3xl font-bold text-gray-800 heading-font">Créer un Utilisateur</h1>
+                        <h1 class="text-3xl font-bold text-gray-800 heading-font">Créer un Nouveau Rôle</h1>
                     </div>
-                    <p class="text-gray-500 mt-1 ml-9">Ajoutez un nouvel utilisateur et définissez ses permissions</p>
+                    <p class="text-gray-500 mt-1">Définissez un nouveau rôle et ses permissions</p>
                 </div>
 
                 <div class="flex items-center gap-4">
@@ -354,7 +580,7 @@
                     </button>
 
                     <!-- Profile -->
-                    <div class="flex items-center gap-3 pl-4 border-l border-gray-200">
+                    <div class="flex items-center gap-3 pl-4 border-l">
                         <div class="text-right">
                             <p class="text-sm font-semibold text-gray-800">Admin User</p>
                             <p class="text-xs text-gray-500">Administrateur</p>
@@ -366,115 +592,74 @@
             </div>
         </header>
 
-        <!-- Form -->
-        <form action="" method="POST">
+        <!-- Create Form -->
+        <form action="{{route('role.store')}}" method="POST">
             @csrf
+            <div class="form-container">
+                <h3 class="text-2xl font-bold text-gray-800 mb-8 heading-font">Informations du Rôle</h3>
 
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                <!-- Left Column - Main Info -->
-                <div class="lg:col-span-2 space-y-6">
-                    <!-- Basic Information -->
-                    <div class="form-card">
-                        <div class="section-header">
-                            <div class="flex items-center gap-2">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-                                </svg>
-                                <span>Informations de Base</span>
-                            </div>
+                <!-- Role Name -->
+                <div class="form-group">
+                    <label class="form-label">
+                        Nom du Rôle
+                        <span class="required">*</span>
+                    </label>
+                    <input type="text" name="name" class="form-input" placeholder="Ex: Gestionnaire de stock"
+                        required>
+                    <p class="form-help">Choisissez un nom descriptif pour le rôle</p>
+                </div>
+                <hr style="border: 0; border-top: 1px solid #e5e7eb; margin: 2rem 0;">
+
+                <h3 class="text-2xl font-bold text-gray-800 mb-6 heading-font">Permissions du Rôle</h3>
+                <p class="text-gray-500 mb-6">Sélectionnez les permissions à attribuer à ce rôle</p>
+
+                <!-- Permissions Grid -->
+                <div class="permissions-grid">
+                    <div class="permission-category">
+                        <div class="category-title">
+                            <svg class="w-5 h-5" style="color: var(--sage);" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z">
+                                </path>
+                            </svg>
+                            Permissions
                         </div>
+                        <div class="checkbox-grid">
+                            @foreach ($permessions as $per)
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="permissions[]" value="{{$per->name}}">
+                                    <div class="checkbox-content">
+                                        <p class="permission-name">{{$per->name}}</p>
+                                        <p class="permission-desc">{{$per->name}}</p>
+                                    </div>
+                                </label>
+                            @endforeach
 
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div class="form-group">
-                                <label class="form-label">Nom <span class="text-red-500">*</span></label>
-                                <input type="text" name="name" class="form-input" placeholder="Dupont"
-                                    required>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label">Adresse Email <span class="text-red-500">*</span></label>
-                            <input type="email" name="email" class="form-input"
-                                placeholder="jean.dupont@greentech.com" required>
-                        </div>
-
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div class="form-group">
-                                <label class="form-label">Mot de passe <span class="text-red-500">*</span></label>
-                                <input type="password" name="password" class="form-input" placeholder="••••••••"
-                                    required>
-                            </div>
                         </div>
                     </div>
-
-
                 </div>
 
-                <!-- Right Column - Role & Status -->
-                <div class="space-y-6">
-                    <!-- Role Assignment -->
-                    <div class="form-card">
-                        <div class="section-header">
-                            <div class="flex items-center gap-2">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z">
-                                    </path>
-                                </svg>
-                                <span>Rôle Principal</span>
-                            </div>
-                        </div>
-
-                        <div class="form-group mb-0">
-                            <label class="form-label">Sélectionner un rôle <span class="text-red-500">*</span></label>
-                            <select name="role_id" class="form-select" required>
-                                <option value="">Choisir un rôle</option>
-                                @foreach ($roles as $role)
-                                    <option value="{{$role->id}}">{{$role->name}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-
-                        <div class="mt-4 p-3 bg-blue-50 rounded-lg">
-                            <p class="text-xs text-blue-700">
-                                <strong>Info :</strong> Le rôle définit les permissions de base. Vous pouvez ajouter des
-                                permissions supplémentaires ci-dessus.
-                            </p>
-                        </div>
-                    </div>
-
-
-
-                    <!-- Action Buttons -->
-                    <div class="form-card">
-                        <div class="space-y-3">
-                            <button type="submit" class="btn-primary w-full justify-center">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M5 13l4 4L19 7"></path>
-                                </svg>
-                                Créer l'utilisateur
-                            </button>
-
-                            <a href="/admin/users" class="btn-secondary w-full justify-center">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M6 18L18 6M6 6l12 12"></path>
-                                </svg>
-                                Annuler
-                            </a>
-                        </div>
-                    </div>
+                <!-- Action Buttons -->
+                <div class="flex items-center gap-4 mt-8">
+                    <button type="submit" class="btn-primary">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7">
+                            </path>
+                        </svg>
+                        Créer le rôle
+                    </button>
+                    <a href="roles_list.html" class="btn-secondary">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                        Annuler
+                    </a>
                 </div>
             </div>
         </form>
     </main>
-
-    <script>
-        // Avatar Preview
-        //
-    </script>
 
 </body>
 
